@@ -29,7 +29,8 @@ namespace OpenGL.Game.Classes
 
         public Matrix4 GetViewMatrix()
         {
-            return Matrix4.LookAt(transform.position, transform.position + transform.forward, transform.up);
+            //return Matrix4.LookAt(transform.position, transform.position + transform.forward, transform.up);
+            return transform.GetMatrix().Inverted();
         }
 
         public Matrix4 GetProjectionMatrix()

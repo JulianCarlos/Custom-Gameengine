@@ -72,9 +72,9 @@ namespace OpenGL.Game
 
         public void Render(Camera camera)
         {
-            if (mesh == null || gameObject.Active == false || (gameObject.Parent != null && gameObject.Parent.Active == false))
+            if (mesh == null || gameObject.Active == false || (gameObject.transform.Parent != null && gameObject.transform.Parent.gameObject.Active == false))
                 return;
-
+            
             GL.UseProgram(gameObject.material.shader.program);
 
             // Bind the texture
@@ -100,21 +100,6 @@ namespace OpenGL.Game
             int projectionMatrixUniformLocation = GL.GetUniformLocation(gameObject.material.shader.program, "projection");
             matrix4 = camera.GetProjectionMatrix();
             GL.UniformMatrix4(projectionMatrixUniformLocation, false, ref matrix4);
-
-            //// Send the light position to the vertex and fragment shaders
-            //int lightPosUniformLocation = GL.GetUniformLocation(material.shader.program, "lightPos");
-            //Vector3 lightPos = Light.Main.transform.Position;
-            //GL.Uniform3(lightPosUniformLocation, lightPos);
-            //
-            //// Send the light color to the fragment shader
-            //int lightColorUniformLocation = GL.GetUniformLocation(material.shader.program, "lightColor");
-            //Vector3 lightColor = Light.Main.Color;
-            //GL.Uniform3(lightColorUniformLocation, lightColor);
-            //
-            //// Send the object color to the fragment shader
-            //int objectColorUniformLocation = GL.GetUniformLocation(material.shader.program, "objectColor");
-            //Vector3 objectColor = material.color;
-            //GL.Uniform3(objectColorUniformLocation, objectColor);
 
             GL.BindVertexArray(vao);
             //GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);

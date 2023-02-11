@@ -15,9 +15,10 @@ namespace OpenGL.Loop
 {
     public class Program : GameWindow
     {
+        public static List<GameObject> ObjectsInScene = new List<GameObject>();
+
         private Camera ingameCamera = new Camera((width) / height, 45f, 0.01f, 100f);
         private Camera editorCamera = new Camera((width) / height, 45f, 0.01f, 100f);
-        private List<GameObject> ObjectsInScene = new List<GameObject>();
 
         private List<MonoBehaviour> awakeScripts = new List<MonoBehaviour>();
         private List<MonoBehaviour> lateAwakeScripts = new List<MonoBehaviour>();
@@ -69,9 +70,6 @@ namespace OpenGL.Loop
             CursorVisible = false;
             CursorGrabbed = true;
 
-            ingameCamera.transform.position = new Vector3(0, 1.5f, 0f);
-            editorCamera.transform.position = new Vector3(-5, 1, -15f);
-
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
@@ -84,19 +82,23 @@ namespace OpenGL.Loop
 
             skybox = new Skybox();
 
-            ObjectsInScene[0].AddChild(ObjectsInScene[5]);
-            ObjectsInScene[0].AddChild(ObjectsInScene[10]);
-            ObjectsInScene[0].AddChild(ObjectsInScene[7]);
-            ObjectsInScene[0].AddChild(ObjectsInScene[25]);
-            ObjectsInScene[0].AddChild(ObjectsInScene[35]);
+            ObjectsInScene[0].transform.AddChild(ObjectsInScene[5].transform);
+            ObjectsInScene[0].transform.AddChild(ObjectsInScene[10].transform);
+            ObjectsInScene[0].transform.AddChild(ObjectsInScene[7].transform);
+            ObjectsInScene[0].transform.AddChild(ObjectsInScene[25].transform);
+            ObjectsInScene[0].transform.AddChild(ObjectsInScene[35].transform);
             ObjectsInScene[0].transform.position += new Vector3(0, 8, 0);
+            ObjectsInScene[0].transform.AddChild(ingameCamera.transform);
 
-            player = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
-            player.transform.position = new Vector3(0, 2, 0);
-            //player.SetActive(false);
-            ObjectsInScene.Add(player);
+            ingameCamera.transform.position = new Vector3(0, 1, 0);
 
             GetAllMonoBehaviours();
+
+            player = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
+            player.SetActive(false);
+            player.transform.position = new Vector3(0, 1, 0);
+            player.transform.AddChild(ingameCamera.transform);
+            ObjectsInScene.Add(player);
 
             foreach (MonoBehaviour mono in awakeScripts)
             {
@@ -140,44 +142,45 @@ namespace OpenGL.Loop
 
         private void UpdateCameraPosition()
         {
-            ingameCamera.transform.Rotate(new Vector3(0, mouseDelta.X * 20 * Time.DeltaTime * -1, 0));
-            player.transform.Rotate(new Vector3(0, mouseDelta.X * 20 * Time.DeltaTime * -1, 0));
+            ingameCamera.transform.Rotate(new Vector3(mouseDelta.Y * 20 * Time.DeltaTime, 0, 0));
+
+            player.transform.Rotate(new Vector3(0, mouseDelta.X * 20 * Time.DeltaTime, 0));
 
             keyboardState = Keyboard.GetState();
             mouseDelta = CalculateMouseDelta();
 
             if (keyboardState.IsKeyDown(Key.W))
             {
-                ingameCamera.transform.position += ingameCamera.transform.forward * cameraSpeed * Time.DeltaTime;
+                player.transform.position += -player.transform.forward * cameraSpeed * Time.DeltaTime;
             }
             else if (keyboardState.IsKeyDown(Key.S))
             {
-                ingameCamera.transform.position += -ingameCamera.transform.forward * cameraSpeed * Time.DeltaTime;
+                player.transform.position += player.transform.forward * cameraSpeed * Time.DeltaTime;
             }
-
+            
             if (keyboardState.IsKeyDown(Key.A))
             {
-                ingameCamera.transform.position += ingameCamera.transform.right * cameraSpeed * Time.DeltaTime;
+                player.transform.position += -player.transform.right * cameraSpeed * Time.DeltaTime;
             }
             else if (keyboardState.IsKeyDown(Key.D))
             {
-                ingameCamera.transform.position += -ingameCamera.transform.right * cameraSpeed * Time.DeltaTime;
+                player.transform.position += player.transform.right * cameraSpeed * Time.DeltaTime;
             }
-
+            
             if (keyboardState.IsKeyDown(Key.Space))
             {
-                ingameCamera.transform.position += ingameCamera.transform.up * cameraSpeed * Time.DeltaTime;
+                player.transform.position += player.transform.up * cameraSpeed * Time.DeltaTime;
             }
             else if (keyboardState.IsKeyDown(Key.ControlLeft))
             {
-                ingameCamera.transform.position += -ingameCamera.transform.up * cameraSpeed * Time.DeltaTime;
+                player.transform.position += -player.transform.up * cameraSpeed * Time.DeltaTime;
             }
         }
 
         private Vector2 CalculateMouseDelta()
         {
             mouseState = Mouse.GetState();
-            int x = mouseState.X;
+            int x = mouseState.X * -1;
             int y = mouseState.Y * -1;
             currentMousePosition = new Vector2(x, y);
 

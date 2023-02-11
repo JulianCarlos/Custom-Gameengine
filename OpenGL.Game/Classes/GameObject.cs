@@ -21,9 +21,6 @@ namespace OpenGL.Game
         public MeshRenderer meshRenderer { get; set; }
         public Material material;
 
-        public GameObject Parent;
-        public List<GameObject> Children = new List<GameObject>();
-
         private List<Component> components = new List<Component>();
 
         public GameObject()
@@ -36,12 +33,6 @@ namespace OpenGL.Game
         public void SetActive(bool active)
         {
             this.Active = active;
-        }
-
-        public void AddChild(GameObject child)
-        {
-            Children.Add(child);
-            child.Parent = this;
         }
 
         public static GameObject CreatePrimitives(PrimitiveType type)
@@ -190,6 +181,11 @@ namespace OpenGL.Game
             MeshRenderer meshRenderer = new MeshRenderer(mesh, gameObject);
             gameObject.meshRenderer = meshRenderer;
             return gameObject;
+        }
+
+        public static void LoadModel(string Path)
+        {
+
         }
 
         public T AddComponent<T>() where T: Component, new()

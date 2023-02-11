@@ -57,13 +57,19 @@ namespace OpenGL.Game
         }
 
         public Transform Parent;
-        public List<Transform> Childs;
+        public List<Transform> Childs = new List<Transform>();
 
         public Transform()
         {
             position = Vector3.Zero;
             rotation = Quaternion.Identity;
             scale = Vector3.One;
+        }
+
+        public void AddChild(Transform child)
+        {
+            Childs.Add(child);
+            child.Parent = this;
         }
 
         public Vector3 TransformDirection(Vector3 direction)
@@ -78,7 +84,7 @@ namespace OpenGL.Game
 
         public Matrix4 GetMatrix()
         {
-            if(gameObject != null && gameObject.Parent != null)
+            if(Parent != null)
             {
                 Matrix4 translationMatrix = Matrix4.CreateTranslation(position);
                 Matrix4 rotationMatrix = Matrix4.CreateFromQuaternion(rotation);
@@ -86,7 +92,7 @@ namespace OpenGL.Game
 
                 var localMatrix = scaleMatrix * rotationMatrix * translationMatrix;
 
-                var matrix = Matrix4.Mult(localMatrix, gameObject.Parent.transform.TransformMatrix);
+                var matrix = Matrix4.Mult(localMatrix, Parent.TransformMatrix);
 
                 return matrix;
             }
