@@ -21,5 +21,10 @@ namespace OpenGL.Game
             this.Normals = normals;
             this.Indices = indices;
         }
+
+        public static Mesh GenerateMesh(Vector3[] vertices, Vector2[] uvs, Vector3[] normals, uint[] indices)
+        {
+            return null;
+        }
     }
 }

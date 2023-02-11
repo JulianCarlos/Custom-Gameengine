@@ -183,11 +183,6 @@ namespace OpenGL.Game
             return gameObject;
         }
 
-        public static void LoadModel(string Path)
-        {
-
-        }
-
         public T AddComponent<T>() where T: Component, new()
         {
             T component = new T();
