@@ -15,10 +15,7 @@ namespace OpenGL.Loop
 {
     public class Program : GameWindow
     {
-        public static List<GameObject> ObjectsInScene = new List<GameObject>();
-
         private Camera ingameCamera = new Camera((width) / height, 45f, 0.01f, 100f);
-        private Camera editorCamera = new Camera((width) / height, 45f, 0.01f, 100f);
 
         private List<MonoBehaviour> awakeScripts = new List<MonoBehaviour>();
         private List<MonoBehaviour> lateAwakeScripts = new List<MonoBehaviour>();
@@ -73,25 +70,16 @@ namespace OpenGL.Loop
             CursorVisible = false;
             CursorGrabbed = true;
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < 30; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     GameObject gameObject = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
                     gameObject.transform.position = new Vector3(i - 5f, 0, j - 5f);
-                    ObjectsInScene.Add(gameObject);
                 }
             }
 
             skybox = new Skybox();
-
-            ObjectsInScene[0].transform.AddChild(ObjectsInScene[5].transform);
-            ObjectsInScene[0].transform.AddChild(ObjectsInScene[10].transform);
-            ObjectsInScene[0].transform.AddChild(ObjectsInScene[7].transform);
-            ObjectsInScene[0].transform.AddChild(ObjectsInScene[25].transform);
-            ObjectsInScene[0].transform.AddChild(ObjectsInScene[35].transform);
-            ObjectsInScene[0].transform.position += new Vector3(0, 8, 0);
-            ObjectsInScene[0].transform.AddChild(ingameCamera.transform);
 
             ingameCamera.transform.position = new Vector3(0, 1, 0);
 
@@ -101,7 +89,6 @@ namespace OpenGL.Loop
             player.SetActive(false);
             player.transform.position = new Vector3(0, 1, 0);
             player.transform.AddChild(ingameCamera.transform);
-            ObjectsInScene.Add(player);
 
             foreach (MonoBehaviour mono in awakeScripts)
             {
@@ -132,7 +119,7 @@ namespace OpenGL.Loop
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.ClearColor(Color4.CornflowerBlue);
 
-            RenderAllObjectsInScene();
+            Scene.UpdateScene(ingameCamera);
 
             GL.DepthFunc(DepthFunction.Lequal);
             skybox.DrawSkybox(ingameCamera);
@@ -146,7 +133,6 @@ namespace OpenGL.Loop
         private void UpdateCameraPosition()
         {
             ingameCamera.transform.Rotate(new Vector3(mouseDelta.Y * 20 * Time.DeltaTime, 0, 0));
-
             player.transform.Rotate(new Vector3(0, mouseDelta.X * 20 * Time.DeltaTime, 0));
 
             keyboardState = Keyboard.GetState();
@@ -191,17 +177,6 @@ namespace OpenGL.Loop
             previousMousePosition = currentMousePosition;
 
             return mouseDelta / 100;
-        }
-
-        private void RenderAllObjectsInScene()
-        {
-            foreach (GameObject game in ObjectsInScene)
-            {
-                game.meshRenderer.Render(ingameCamera);
-            }
-            ObjectsInScene[0].transform.Rotate(new Vector3(1 * Time.DeltaTime, 1 * Time.DeltaTime, 1 * Time.DeltaTime));
-            ObjectsInScene[5].transform.Rotate(new Vector3(5 * Time.DeltaTime, 5 * Time.DeltaTime, 5 * Time.DeltaTime));
-            ObjectsInScene[0].transform.scale = Vector3.One * (float)(Math.Sin(Time.time * 3) + 2) / 2;
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)

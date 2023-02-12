@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OpenGL.Game.Classes
 {
-    public class Camera : Component
+    public class Camera : Component, ISceneObject
     {
         public Transform transform = new Transform();
 

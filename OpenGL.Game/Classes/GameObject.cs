@@ -182,6 +182,7 @@ namespace OpenGL.Game
             Mesh mesh = new Mesh(vertices, uvs, normals, IndincesCalculator.GenerateIndices(36, 0));
             MeshRenderer meshRenderer = new MeshRenderer(mesh, gameObject);
             gameObject.meshRenderer = meshRenderer;
+            Scene.AddObject(gameObject.transform);
             return gameObject;
         }
 
