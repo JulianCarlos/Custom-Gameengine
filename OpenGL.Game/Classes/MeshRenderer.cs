@@ -34,7 +34,7 @@ namespace OpenGL.Game
 
             vbo = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-            GL.BufferData(BufferTarget.ArrayBuffer, mesh.Vertices.Length * sizeof(float) * 3, mesh.Vertices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, mesh.Vertices.Length * sizeof(float) * 3, mesh.Vertices, BufferUsageHint.DynamicDraw);
             GL.EnableVertexAttribArray(0);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
 
