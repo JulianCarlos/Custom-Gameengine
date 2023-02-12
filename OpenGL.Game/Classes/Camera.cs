@@ -25,6 +25,9 @@ namespace OpenGL.Game.Classes
 
             nearClipping = nearClip;
             farClipping = farClip;
+
+            Scene.AddObject(this.transform);
+            Scene.Cameras.Add(this);
         }
 
         public Matrix4 GetViewMatrix()

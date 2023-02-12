@@ -29,21 +29,12 @@ namespace OpenGL.Loop
         private MethodInfo updateMethod;
         private MethodInfo lateUpdateMethod;
 
-        private static int width = 1600;
-        private static int height = 800;
-
-        private float cameraSpeed = 5;
-
-        private Vector2 mouseDelta;
-        private Vector2 currentMousePosition;
-        private Vector2 previousMousePosition;
-
-        private KeyboardState keyboardState;
-        private MouseState mouseState;
+        public static int width = 1600;
+        public static int height = 800;
 
         private Skybox skybox;
 
-        private GameObject player;
+        //private GameObject player;
 
         public Program() : base(width, height, GraphicsMode.Default, "My poor Game")
         {
@@ -85,24 +76,24 @@ namespace OpenGL.Loop
 
             GetAllMonoBehaviours();
 
-            player = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
-            player.SetActive(false);
-            player.transform.position = new Vector3(0, 1, 0);
-            player.transform.AddChild(ingameCamera.transform);
+            //player = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
+            //player.SetActive(false);
+            //player.transform.position = new Vector3(0, 1, 0);
+            //player.transform.AddChild(ingameCamera.transform);
 
             foreach (MonoBehaviour mono in awakeScripts)
             {
-                awakeMethod.Invoke(mono, null);
+                awakeMethod?.Invoke(mono, null);
             }
 
             foreach (MonoBehaviour mono in lateAwakeScripts)
             {
-                lateAwakeMethod.Invoke(mono, null);
+                lateAwakeMethod?.Invoke(mono, null);
             }
 
             foreach (MonoBehaviour mono in startScripts)
             {
-                startMethod.Invoke(mono, null);
+                startMethod?.Invoke(mono, null);
             }
         }
 
@@ -119,64 +110,14 @@ namespace OpenGL.Loop
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.ClearColor(Color4.CornflowerBlue);
 
-            Scene.UpdateScene(ingameCamera);
+            Input.UpdateInput();
+            Scene.UpdateScene();
 
             GL.DepthFunc(DepthFunction.Lequal);
             skybox.DrawSkybox(ingameCamera);
             GL.DepthFunc(DepthFunction.Less);
 
-            UpdateCameraPosition();
-
             SwapBuffers();
-        }
-
-        private void UpdateCameraPosition()
-        {
-            ingameCamera.transform.Rotate(new Vector3(mouseDelta.Y * 20 * Time.DeltaTime, 0, 0));
-            player.transform.Rotate(new Vector3(0, mouseDelta.X * 20 * Time.DeltaTime, 0));
-
-            keyboardState = Keyboard.GetState();
-            mouseDelta = CalculateMouseDelta();
-
-            if (keyboardState.IsKeyDown(Key.W))
-            {
-                player.transform.position += -player.transform.forward * cameraSpeed * Time.DeltaTime;
-            }
-            else if (keyboardState.IsKeyDown(Key.S))
-            {
-                player.transform.position += player.transform.forward * cameraSpeed * Time.DeltaTime;
-            }
-            
-            if (keyboardState.IsKeyDown(Key.A))
-            {
-                player.transform.position += -player.transform.right * cameraSpeed * Time.DeltaTime;
-            }
-            else if (keyboardState.IsKeyDown(Key.D))
-            {
-                player.transform.position += player.transform.right * cameraSpeed * Time.DeltaTime;
-            }
-            
-            if (keyboardState.IsKeyDown(Key.Space))
-            {
-                player.transform.position += player.transform.up * cameraSpeed * Time.DeltaTime;
-            }
-            else if (keyboardState.IsKeyDown(Key.ControlLeft))
-            {
-                player.transform.position += -player.transform.up * cameraSpeed * Time.DeltaTime;
-            }
-        }
-
-        private Vector2 CalculateMouseDelta()
-        {
-            mouseState = Mouse.GetState();
-            int x = mouseState.X * -1;
-            int y = mouseState.Y * -1;
-            currentMousePosition = new Vector2(x, y);
-
-            mouseDelta = currentMousePosition - previousMousePosition;
-            previousMousePosition = currentMousePosition;
-
-            return mouseDelta / 100;
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -185,12 +126,12 @@ namespace OpenGL.Loop
 
             foreach (MonoBehaviour mono in updateScripts)
             {
-                updateMethod.Invoke(mono, null);
+                updateMethod?.Invoke(mono, null);
             }
 
             foreach (MonoBehaviour mono in lateUpdateScripts)
             {
-                lateUpdateMethod.Invoke(mono, null);
+                lateUpdateMethod?.Invoke(mono, null);
             }
 
             var keyboard = Keyboard.GetState();
@@ -211,9 +152,9 @@ namespace OpenGL.Loop
 
         private void GetAllMonoBehaviours()
         {
-            Assembly assembly = Assembly.Load("OpenGL.Game");
-
-            var types = assembly.GetTypes()
+            Assembly gameAssembly = Assembly.Load("OpenGL.Game");
+            
+            var types = gameAssembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(MonoBehaviour)));
 
             foreach (Type type in types)
