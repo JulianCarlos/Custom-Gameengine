@@ -67,12 +67,15 @@ namespace OpenGL.Loop
             GL.Enable(EnableCap.Texture2D);
             GL.DepthFunc(DepthFunction.Less);
 
+            //GL.Enable(EnableCap.CullFace);
+            //GL.CullFace(CullFaceMode.Back);
+
             CursorVisible = false;
             CursorGrabbed = true;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 30; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 30; j++)
                 {
                     GameObject gameObject = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
                     gameObject.transform.position = new Vector3(i - 5f, 0, j - 5f);
@@ -128,7 +131,7 @@ namespace OpenGL.Loop
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.ClearColor(Color4.CornflowerBlue);
-            
+
             RenderAllObjectsInScene();
 
             GL.DepthFunc(DepthFunction.Lequal);

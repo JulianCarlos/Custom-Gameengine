@@ -10,6 +10,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Assimp;
 using OpenGL.Game.AbstractClasses;
+using OpenGL.Game.Helper;
 
 namespace OpenGL.Game
 {
@@ -155,29 +156,30 @@ namespace OpenGL.Game
                   // Front Face
                   0, 1, 2, // First Triangle
                   1, 3, 2, // Second Triangle
-
+            
                   // Back Face
                   2 + 4, 1 + 4, 0 + 4, // First Triangle
                   3 + 4, 1 + 4, 2 + 4, // Second Triangle
-
+            
                   // Right Face
                   2 + 8, 1 + 8, 0 + 8, // First Triangle
                   3 + 8, 1 + 8, 2 + 8, // Second Triangle
-
+            
                   // Left Face
                   0 + 12, 1 + 12, 2 + 12, // First Triangle
                   1 + 12, 3 + 12, 2 + 12, // Second Triangle
-
+            
                   // Top Face
                   2 + 16, 1 + 16, 0 + 16, // First Triangle
                   3 + 16, 1 + 16, 2 + 16, // Second Triangle
-
+            
                   // Bottom Face
                   0 + 20, 1 + 20, 2 + 20, // First Triangle
                   1 + 20, 3 + 20, 2 + 20, // Second Triangle
             };
 
-            Mesh mesh = new Mesh(vertices, uvs, normals, indices);
+            //Mesh mesh = new Mesh(vertices, uvs, normals, indices);
+            Mesh mesh = new Mesh(vertices, uvs, normals, IndincesCalculator.GenerateIndices(36, 0));
             MeshRenderer meshRenderer = new MeshRenderer(mesh, gameObject);
             gameObject.meshRenderer = meshRenderer;
             return gameObject;
