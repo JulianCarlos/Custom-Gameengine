@@ -27,6 +27,7 @@ namespace OpenGL.Game
         {
             this.gameObject = gameObject;
             this.mesh = mesh;
+            Name = "MeshRenderer";
 
             #region GenerateBuffers
             vao = GL.GenVertexArray();

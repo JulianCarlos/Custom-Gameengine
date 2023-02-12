@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="AbstractClasses\Component.cs" />
     <Compile Include="AbstractClasses\Monobehaviour.cs" />
+    <Compile Include="AbstractClasses\Object.cs" />
     <Compile Include="Classes\Camera.cs" />
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\Input.cs" />

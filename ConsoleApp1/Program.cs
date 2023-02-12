@@ -15,8 +15,6 @@ namespace OpenGL.Loop
 {
     public class Program : GameWindow
     {
-        private Camera ingameCamera = new Camera((width) / height, 45f, 0.01f, 100f);
-
         private List<MonoBehaviour> awakeScripts = new List<MonoBehaviour>();
         private List<MonoBehaviour> lateAwakeScripts = new List<MonoBehaviour>();
         private List<MonoBehaviour> startScripts = new List<MonoBehaviour>();
@@ -33,8 +31,6 @@ namespace OpenGL.Loop
         public static int height = 800;
 
         private Skybox skybox;
-
-        //private GameObject player;
 
         public Program() : base(width, height, GraphicsMode.Default, "My poor Game")
         {
@@ -55,26 +51,26 @@ namespace OpenGL.Loop
             GL.Enable(EnableCap.Texture2D);
             GL.DepthFunc(DepthFunction.Less);
 
+            GetAllMonoBehaviours();
+
             //GL.Enable(EnableCap.CullFace);
             //GL.CullFace(CullFaceMode.Back);
 
             CursorVisible = false;
             CursorGrabbed = true;
 
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    GameObject gameObject = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
-                    gameObject.transform.position = new Vector3(i - 5f, 0, j - 5f);
-                }
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    for (int j = 0; j < 10; j++)
+            //    {
+            //        GameObject gameObject = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
+            //        gameObject.transform.position = new Vector3(i - 5f, 0, j - 5f);
+            //    }
+            //}
 
             skybox = new Skybox();
 
-            ingameCamera.transform.position = new Vector3(0, 1, 0);
-
-            GetAllMonoBehaviours();
+            //ingameCamera.transform.position = new Vector3(0, 1, 0);
 
             //player = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
             //player.SetActive(false);
@@ -83,17 +79,17 @@ namespace OpenGL.Loop
 
             foreach (MonoBehaviour mono in awakeScripts)
             {
-                awakeMethod?.Invoke(mono, null);
+                mono.Awake();
             }
 
             foreach (MonoBehaviour mono in lateAwakeScripts)
             {
-                lateAwakeMethod?.Invoke(mono, null);
+                mono.LateAwake();
             }
 
             foreach (MonoBehaviour mono in startScripts)
             {
-                startMethod?.Invoke(mono, null);
+                mono.Start();
             }
         }
 
@@ -114,7 +110,7 @@ namespace OpenGL.Loop
             Scene.UpdateScene();
 
             GL.DepthFunc(DepthFunction.Lequal);
-            skybox.DrawSkybox(ingameCamera);
+            skybox.DrawSkybox(Scene.Cameras[0]);
             GL.DepthFunc(DepthFunction.Less);
 
             SwapBuffers();
@@ -126,12 +122,12 @@ namespace OpenGL.Loop
 
             foreach (MonoBehaviour mono in updateScripts)
             {
-                updateMethod?.Invoke(mono, null);
+                mono.Update();
             }
 
             foreach (MonoBehaviour mono in lateUpdateScripts)
             {
-                lateUpdateMethod?.Invoke(mono, null);
+                mono.LateUpdate();
             }
 
             var keyboard = Keyboard.GetState();
@@ -153,9 +149,9 @@ namespace OpenGL.Loop
         private void GetAllMonoBehaviours()
         {
             Assembly gameAssembly = Assembly.Load("OpenGL.Game");
-            
-            var types = gameAssembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(MonoBehaviour)));
+            Assembly customAssembly = Assembly.Load("OpenGL.Custom");
+
+            var types = gameAssembly.GetTypes().Concat(customAssembly.GetTypes()).Where(t => t.IsSubclassOf(typeof(MonoBehaviour)));
 
             foreach (Type type in types)
             {

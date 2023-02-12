@@ -62,7 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlayerController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenGL.Custom\OpenGL.Custom.csproj">
+      <Project>{4859bc98-7a57-4389-8536-46f78b1a3691}</Project>
+      <Name>OpenGL.Custom</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenGL.Game\OpenGL.Game.csproj">
       <Project>{85ad3e9d-8063-4384-a797-83f7c264cfb9}</Project>
       <Name>OpenGL.Game</Name>

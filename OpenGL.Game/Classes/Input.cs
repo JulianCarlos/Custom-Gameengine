@@ -12,6 +12,7 @@ namespace OpenGL.Game.Classes
     {
         public static int HorizontalInput { get { return GetHorizontalInput(); } }
         public static int VerticalInput { get { return GetVerticalInput(); } }
+        public static int UpInput { get { return GetUpInput(); } }
 
         public static Vector2 mouseDelta;
 
@@ -39,6 +40,11 @@ namespace OpenGL.Game.Classes
             mouseDelta = CalculateMouseDelta();
         }
         
+        private static int GetUpInput()
+        {
+            return keyboardState.IsKeyDown(Key.Space) ? 1 : (keyboardState.IsKeyDown(Key.ControlLeft) ? -1 : 0);
+        }
+
         private static int GetHorizontalInput()
         {
             return keyboardState.IsKeyDown(Key.D) ? 1 : (keyboardState.IsKeyDown(Key.A) ? -1 : 0);

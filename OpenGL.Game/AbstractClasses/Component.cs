@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenGL.Game.AbstractClasses
 {
-    public abstract class Component
+    public abstract class Component : Object
     {
         public GameObject gameObject;
     }

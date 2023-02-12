@@ -14,7 +14,7 @@ using OpenGL.Game.Helper;
 
 namespace OpenGL.Game
 {
-    public class GameObject
+    public class GameObject : Object
     {
         public bool Active { get; private set; } = true;
 
@@ -27,7 +27,6 @@ namespace OpenGL.Game
         public GameObject()
         {
             transform = AddComponent<Transform>();
-
             material = Material.defaultMaterial;
         }
 
@@ -182,6 +181,7 @@ namespace OpenGL.Game
             Mesh mesh = new Mesh(vertices, uvs, normals, IndincesCalculator.GenerateIndices(36, 0));
             MeshRenderer meshRenderer = new MeshRenderer(mesh, gameObject);
             gameObject.meshRenderer = meshRenderer;
+            gameObject.Name = "Cube";
             Scene.AddObject(gameObject.transform);
             return gameObject;
         }

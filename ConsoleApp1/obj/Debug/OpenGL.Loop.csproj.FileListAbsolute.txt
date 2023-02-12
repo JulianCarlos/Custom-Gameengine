@@ -23,3 +23,5 @@ C:\Users\Julian Carlos\Desktop\Testing\Game\ConsoleApp1\bin\Debug\Magick.NET-Q16
 C:\Users\Julian Carlos\Desktop\Testing\Game\ConsoleApp1\bin\Debug\Magick.NET.Core.dll
 C:\Users\Julian Carlos\Desktop\Testing\Game\ConsoleApp1\bin\Debug\Magick.NET-Q16-AnyCPU.xml
 C:\Users\Julian Carlos\Desktop\Testing\Game\ConsoleApp1\bin\Debug\Magick.NET.Core.xml
+C:\Users\Julian Carlos\Desktop\Testing\Game\ConsoleApp1\bin\Debug\OpenGL.Custom.dll
+C:\Users\Julian Carlos\Desktop\Testing\Game\ConsoleApp1\bin\Debug\OpenGL.Custom.pdb

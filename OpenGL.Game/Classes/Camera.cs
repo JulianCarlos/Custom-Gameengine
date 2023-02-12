@@ -13,20 +13,22 @@ namespace OpenGL.Game.Classes
     public class Camera : Component, ISceneObject
     {
         public Transform transform = new Transform();
-
+        
         private Matrix4 projectionMatrix;
 
         private float nearClipping;
         private float farClipping;
 
+        private static int TestInstanceID;
+        private int testLocalID;
+
         public Camera(float aspectRatio, float fov, float nearClip, float farClip)
         {
+            Name = "Camera";
             this.projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(fov), aspectRatio, nearClip, farClip);
-
             nearClipping = nearClip;
             farClipping = farClip;
-
-            Scene.AddObject(this.transform);
+            //Scene.AddObject(this.transform);
             Scene.Cameras.Add(this);
         }
 
