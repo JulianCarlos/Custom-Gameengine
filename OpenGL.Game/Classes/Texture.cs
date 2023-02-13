@@ -13,14 +13,7 @@ namespace OpenGL.Game
 {
     public class Texture
     {
-        public static Texture EmptyTexture = LoadFromFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Texture", "empty.png"));
-        public static Texture DefaultTexture = LoadFromFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Texture", "crate.jpg"));
-
         public readonly int Id;
-        public Texture()
-        {
-
-        }
 
         public static Texture LoadFromFile(string path)
         {

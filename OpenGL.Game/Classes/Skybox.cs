@@ -136,6 +136,9 @@ namespace OpenGL.Game.Classes
 
         public void DrawSkybox(Camera camera)
         {
+            if (camera == null)
+                return;
+
             GL.UseProgram(shader.program);
 
             GL.ActiveTexture(TextureUnit.Texture0);

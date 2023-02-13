@@ -9,6 +9,16 @@ namespace OpenGL.Game.AbstractClasses
     public abstract class Component : Object
     {
         public GameObject gameObject;
+
+        public virtual void Awake()
+        {
+
+        }
+
+        public virtual void Update()
+        {
+
+        }
     }
 }
     

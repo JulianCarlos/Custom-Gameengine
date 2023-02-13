@@ -19,9 +19,6 @@ namespace OpenGL.Game.Classes
         private float nearClipping;
         private float farClipping;
 
-        private static int TestInstanceID;
-        private int testLocalID;
-
         public Camera(float aspectRatio, float fov, float nearClip, float farClip)
         {
             Name = "Camera";

@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using OpenGL.Game;
+﻿using System.Collections.Generic;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
-using Assimp;
 using OpenGL.Game.AbstractClasses;
 using OpenGL.Game.Helper;
+using OpenGL.Game.Library;
 
 namespace OpenGL.Game
 {
@@ -27,7 +19,24 @@ namespace OpenGL.Game
         public GameObject()
         {
             transform = AddComponent<Transform>();
-            material = Material.defaultMaterial;
+            material = MaterialLibrary.defaultMaterial;
+        }
+
+        public void StartAllComponents()
+        {
+            foreach (var component in components)
+            {
+                component.Awake();
+            }
+        }
+
+        public void UpdateAllComponents()
+        {
+            foreach (var component in components)
+            {
+                component.Update();
+                meshRenderer.Update();
+            }
         }
 
         public void SetActive(bool active)
@@ -191,6 +200,7 @@ namespace OpenGL.Game
             T component = new T();
             component.gameObject = this;
             this.components.Add(component);
+            component.Awake();
             return component;
         }
 

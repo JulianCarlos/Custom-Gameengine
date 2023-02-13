@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using OpenGL.Game.Library;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -12,19 +13,21 @@ namespace OpenGL.Game
 {
     public class Material
     {
-        public static Material defaultMaterial = new Material();
-
         public Texture texture;
         public Shader shader;
 
-        private Vector3 diffuseColor;
-        private Vector3 specularColor;
-        private float shininess;
+        private Vector3 direction = new Vector3(0.1f, 0.5f, 0.5f);
+        private Vector3 diffuse = new Vector3(0.8f, 0.8f, 0.8f);
+        private Vector3 ambient = new Vector3(0.2f, 0.2f, 0.2f);
+        private Vector3 lightColor = new Vector3(0.6f, 0.6f, 0.6f);
+
+        private float shininess = 4f;
+        private Vector3 specularColor = new Vector3(0.5f, 0.5f, 0.5f);
 
         public Material()
         {
-            this.shader = Shader.DefaultShader;
-            texture = Texture.DefaultTexture;
+            shader = ShaderLibrary.DefaultShader;
+            texture = TextureLibrary.DefaultTexture;
         }
 
         public void Apply()
@@ -32,29 +35,13 @@ namespace OpenGL.Game
             if (texture == null)
                 return;
 
-            GL.Uniform3(shader.GetUniformLocation("material.diffuse"), diffuseColor);
-            GL.Uniform3(shader.GetUniformLocation("material.specular"), specularColor);
-            GL.Uniform1(shader.GetUniformLocation("material.shininess"), shininess);
-        }
+            GL.Uniform1(shader.GetUniformLocation("shininess"), shininess);
+            GL.Uniform3(shader.GetUniformLocation("specularColor"), specularColor);
 
-        public void SetDiffuseColor(Vector3 color)
-        {
-            diffuseColor = color;
-        }
-
-        public void SetDiffuseTexture(Texture texture)
-        {
-            this.texture = texture;
-        }
-
-        public void SetSpecularColor(Vector3 color)
-        {
-            specularColor = color;
-        }
-
-        public void SetShininess(float value)
-        {
-            shininess = value;
+            GL.Uniform3(shader.GetUniformLocation("lightDirection"), Scene.sun.forward);
+            GL.Uniform3(shader.GetUniformLocation("diffuseColor"), diffuse);
+            GL.Uniform3(shader.GetUniformLocation("ambientColor"), ambient);
+            GL.Uniform3(shader.GetUniformLocation("lightColor"), lightColor);
         }
     }
 }

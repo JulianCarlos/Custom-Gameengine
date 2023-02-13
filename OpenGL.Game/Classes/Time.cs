@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGL.Game
 {
-    public class Time : MonoBehaviour
+    public static class Time
     {
         public static float DeltaTime
         {
@@ -24,13 +24,13 @@ namespace OpenGL.Game
         private static DateTime previousFrame;
         private static DateTime applicationStarted;
 
-        public override void Awake()
+        public static void StartTime()
         {
             applicationStarted = DateTime.Now;
             previousFrame = DateTime.Now;
         }
 
-        public override void Update()
+        public static void UpdateTime()
         {
             currentFrame = DateTime.Now;
             deltaTime = (currentFrame - previousFrame).TotalSeconds;

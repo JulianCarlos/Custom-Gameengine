@@ -71,8 +71,18 @@ namespace OpenGL.Game
             GL.VertexAttribPointer(texCoordLocation, 2, VertexAttribPointerType.Float, false, 0, 0);
         }
 
+        public override void Update()
+        {
+            base.Update();
+
+            Render(Scene.Cameras[0]);
+        }
+
         public void Render(Camera camera)
         {
+            if (camera == null)
+                return;
+
             if (mesh == null || gameObject.Active == false || (gameObject.transform.Parent != null && gameObject.transform.Parent.gameObject.Active == false))
                 return;
             
@@ -80,6 +90,7 @@ namespace OpenGL.Game
 
             // Bind the texture
             GL.ActiveTexture(TextureUnit.Texture0);
+            gameObject.material.Apply();
             GL.BindTexture(TextureTarget.Texture2D, gameObject.material.texture.Id);
 
             // Send the texture uniform to the fragment shader
@@ -103,7 +114,6 @@ namespace OpenGL.Game
             GL.UniformMatrix4(projectionMatrixUniformLocation, false, ref matrix4);
 
             GL.BindVertexArray(vao);
-            //GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
             GL.DrawElements(BeginMode.Triangles, mesh.Indices.Length, DrawElementsType.UnsignedInt, 0);
         }
     }
