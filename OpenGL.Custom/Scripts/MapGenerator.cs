@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using OpenGL.Game;
+using OpenGL.Game.Library;
 using OpenTK;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,13 @@ namespace OpenGL.Custom
 
             cubes[0].transform.position = new Vector3(10, 10, 10);
 
-
             cubes[0].transform.AddChild(cubes[4].transform);
             cubes[0].transform.AddChild(cubes[3].transform);
             cubes[0].transform.AddChild(cubes[17].transform);
             cubes[0].transform.AddChild(cubes[12].transform);
+
+            cubes[5].material = MaterialLibrary.emptyMaterial;
+            cubes[0].material = MaterialLibrary.emptyMaterial;
         }
 
         public override void Update()

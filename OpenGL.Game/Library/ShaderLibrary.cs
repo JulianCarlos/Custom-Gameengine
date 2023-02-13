@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace OpenGL.Game.Library
 {
+
+    /// <summary>
+    /// Shaders are beeing used on all Objects, if you want to change the Texture etc on one single Object, please change the Material instead
+    /// </summary>
     public static class ShaderLibrary
     {
         public static Shader DefaultShader;

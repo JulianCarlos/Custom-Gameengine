@@ -30,6 +30,12 @@ namespace OpenGL.Game
             texture = TextureLibrary.DefaultTexture;
         }
 
+        public Material(Texture texture)
+        {
+            shader = ShaderLibrary.DefaultShader;
+            this.texture = texture;
+        }
+
         public void Apply()
         {
             if (texture == null)

@@ -8,6 +8,7 @@ namespace OpenGL.Game.Library
 {
     public static class MaterialLibrary
     {
-        public static Material defaultMaterial = new Material();
+        public static Material defaultMaterial = new Material(TextureLibrary.DefaultTexture);
+        public static Material emptyMaterial = new Material(TextureLibrary.EmptyTexture);
     }
 }
