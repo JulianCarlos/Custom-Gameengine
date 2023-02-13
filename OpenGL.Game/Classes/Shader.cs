@@ -38,11 +38,6 @@ namespace OpenGL.Game
             GL.DeleteShader(fragmentShader);
         }
 
-        public int GetUniformLocation(string name)
-        {
-            return GL.GetUniformLocation(program, name);
-        }
-
         private int CompileShader(string path, ShaderType type)
         {
             string shaderSource;

@@ -18,9 +18,9 @@ namespace OpenGL.Custom
         {
             base.Awake();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < 50; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     GameObject gameObject = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
                     gameObject.transform.position = new Vector3(i - 5f, -1, j - 5f);

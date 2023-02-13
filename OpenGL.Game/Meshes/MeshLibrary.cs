@@ -1,9 +1,12 @@
-﻿using OpenTK;
+﻿using Assimp;
+using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenTK.Graphics.OpenGL.GL;
 
 namespace OpenGL.Game.Meshes
 {

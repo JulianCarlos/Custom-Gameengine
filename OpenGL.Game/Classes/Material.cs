@@ -8,13 +8,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace OpenGL.Game
 {
     public class Material
     {
-        public Texture texture;
-        public Shader shader;
+        public int TextureID = -1;
+        public int ShaderID = -1;
 
         private Vector3 direction = new Vector3(0.1f, 0.5f, 0.5f);
         private Vector3 diffuse = new Vector3(0.8f, 0.8f, 0.8f);
@@ -26,28 +27,34 @@ namespace OpenGL.Game
 
         public Material()
         {
-            shader = ShaderLibrary.DefaultShader;
-            texture = TextureLibrary.DefaultTexture;
+            ShaderID = ShaderLibrary.DefaultShader.program;
+            TextureID = TextureLibrary.DefaultTexture.Id;
         }
 
         public Material(Texture texture)
         {
-            shader = ShaderLibrary.DefaultShader;
-            this.texture = texture;
+            ShaderID = ShaderLibrary.DefaultShader.program;
+            TextureID = texture.Id;
+        }
+
+        public int GetUniformLocation(string name)
+        {
+            return GL.GetUniformLocation(ShaderID, name);
         }
 
         public void Apply()
         {
-            if (texture == null)
+            if (TextureID == -1 || ShaderID == -1)
                 return;
 
-            GL.Uniform1(shader.GetUniformLocation("shininess"), shininess);
-            GL.Uniform3(shader.GetUniformLocation("specularColor"), specularColor);
 
-            GL.Uniform3(shader.GetUniformLocation("lightDirection"), Scene.sun.forward);
-            GL.Uniform3(shader.GetUniformLocation("diffuseColor"), diffuse);
-            GL.Uniform3(shader.GetUniformLocation("ambientColor"), ambient);
-            GL.Uniform3(shader.GetUniformLocation("lightColor"), lightColor);
+            GL.Uniform1(GetUniformLocation("shininess"), shininess);
+            GL.Uniform3(GetUniformLocation("specularColor"), specularColor);
+            
+            GL.Uniform3(GetUniformLocation("lightDirection"), Scene.DirectionalLight.forward);
+            GL.Uniform3(GetUniformLocation("diffuseColor"), diffuse);
+            GL.Uniform3(GetUniformLocation("ambientColor"), ambient);
+            GL.Uniform3(GetUniformLocation("lightColor"), lightColor);
         }
     }
 }

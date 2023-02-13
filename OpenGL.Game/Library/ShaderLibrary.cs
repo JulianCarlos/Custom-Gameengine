@@ -18,6 +18,10 @@ namespace OpenGL.Game.Library
         private static string defaultVertexPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Shader", "vert.vs");
         private static string defaultFragPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Shader", "frag.fs");
 
+        public static Shader SkyBoxShader;
+        private static string skyBoxVertPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Shader/SkyBox", "skyVert.vs");
+        private static string skyBoxFragPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Shader/SkyBox", "skyFrag.fs");
+
         public static Shader DirectionalShader;
         private static string directionalVertexPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Shader", "directionalVert.vs");
         private static string directionalFragPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Shader", "directionalFrag.fs");
@@ -29,6 +33,7 @@ namespace OpenGL.Game.Library
         public static void GenerateShaders()
         {
             DefaultShader = new Shader(defaultVertexPath, defaultFragPath);
+            SkyBoxShader = new Shader(skyBoxVertPath, skyBoxFragPath);
             DirectionalShader = new Shader(directionalVertexPath, directionalFragPath);
             CrazyCircleShader = new Shader(crazyCircleVertexPath, crazyCircleFragPath);
         }

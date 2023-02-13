@@ -16,7 +16,7 @@ namespace OpenGL.Game
 
         private static List<Transform> QueuedTransforms = new List<Transform>();
 
-        public static Transform sun = new Transform();
+        public static Transform DirectionalLight = new Transform();
 
         public static void AddObject(Transform transform)
         {
@@ -44,7 +44,7 @@ namespace OpenGL.Game
                 item.gameObject.UpdateAllComponents();
             }
 
-            sun.Rotate(new Vector3(0.1f, 0.1f, 0) * Time.DeltaTime);
+            DirectionalLight.Rotate(new Vector3(1f, 1f, 0) * Time.DeltaTime);
         }
     }
 }

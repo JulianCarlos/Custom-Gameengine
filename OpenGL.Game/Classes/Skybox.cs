@@ -13,15 +13,12 @@ using System.Text;
 using System.Threading.Tasks;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using ImageMagick;
+using OpenGL.Game.Library;
 
 namespace OpenGL.Game.Classes
 {
     public class Skybox
     {
-        public Shader shader;
-        private string vertexPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Shader/SkyBox", "skyVert.vs");
-        private string fragmentPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Shader/SkyBox", "skyFrag.fs");
-
         private string frontSide = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Texture", "SkyBox_PZ.png");
         private string backSide = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Texture", "SkyBox_NZ.png");
         private string leftSide = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Texture", "SkyBox_PX.png");
@@ -30,7 +27,8 @@ namespace OpenGL.Game.Classes
         private string topSide = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Texture", "SkyBox_PY.png");
 
         private string[] fileNames;
-        private uint textureObj;
+        private uint textureID;
+        private int shaderID;
 
         private Vector3[] vertices =
         {
@@ -87,7 +85,7 @@ namespace OpenGL.Game.Classes
         public bool LoadSkyBox(string PosX, string NegX, string PosY, string NegY, string PosZ, string NegZ)
         {
             fileNames = new string[6] {PosX, NegX, PosY, NegY, PosZ, NegZ};
-            shader = new Shader(vertexPath, fragmentPath);
+            shaderID = ShaderLibrary.SkyBoxShader.program;
 
             GL.GenVertexArrays(1, out VAO);
             GL.GenBuffers(1, out VBO);
@@ -102,9 +100,9 @@ namespace OpenGL.Game.Classes
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, EBO);
             GL.BufferData(BufferTarget.ElementArrayBuffer, sizeof(uint) * indices.Length, indices, BufferUsageHint.StaticDraw);
 
-            GL.GenTextures(1, out textureObj);
+            GL.GenTextures(1, out textureID);
             GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.TextureCubeMap, textureObj);
+            GL.BindTexture(TextureTarget.TextureCubeMap, textureID);
 
             GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
             GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
@@ -139,13 +137,13 @@ namespace OpenGL.Game.Classes
             if (camera == null)
                 return;
 
-            GL.UseProgram(shader.program);
+            GL.UseProgram(shaderID);
 
             GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.TextureCubeMap, textureObj);
+            GL.BindTexture(TextureTarget.TextureCubeMap, textureID);
 
             // Send the view matrix to the vertex shader
-            int viewMatrixUniformLocation = GL.GetUniformLocation(shader.program, "view");
+            int viewMatrixUniformLocation = GL.GetUniformLocation(shaderID, "view");
             Matrix4 matrix4 = camera.GetViewMatrix();
 
             for (int i = 0; i < 4; i++)
@@ -160,7 +158,7 @@ namespace OpenGL.Game.Classes
             GL.UniformMatrix4(viewMatrixUniformLocation, false, ref matrix4);
 
             // Send the projection matrix to the vertex shader
-            int projectionMatrixUniformLocation = GL.GetUniformLocation(shader.program, "projection");
+            int projectionMatrixUniformLocation = GL.GetUniformLocation(shaderID, "projection");
             matrix4 = camera.GetProjectionMatrix();
             GL.UniformMatrix4(projectionMatrixUniformLocation, false, ref matrix4);
 
