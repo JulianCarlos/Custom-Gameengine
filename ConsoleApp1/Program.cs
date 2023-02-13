@@ -13,6 +13,7 @@ using System.IO;
 using ConsoleApp1;
 using OpenGL.Custom;
 using OpenGL.Game.Library;
+using OpenGL.Game.Meshes;
 
 namespace OpenGL.Loop
 {
@@ -46,6 +47,7 @@ namespace OpenGL.Loop
             GL.DepthFunc(DepthFunction.Less);
 
             ShaderLibrary.GenerateShaders();
+            MeshLibrary.GenerateMeshes();
 
             playerBody = GameObject.CreatePrimitives(GameObject.PrimitiveType.cube);
             playerBody.SetActive(false);
