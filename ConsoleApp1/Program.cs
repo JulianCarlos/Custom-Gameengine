@@ -14,10 +14,12 @@ using ConsoleApp1;
 using OpenGL.Custom;
 using OpenGL.Game.Library;
 using OpenGL.Game.Meshes;
+using System.Windows.Forms;
+using System.Drawing.Text;
 
 namespace OpenGL.Loop
 {
-    public class Program : GameWindow
+    public class MainWindow : GameWindow
     {
         public static int width = 1600;
         public static int height = 800;
@@ -27,7 +29,7 @@ namespace OpenGL.Loop
         private GameObject playerBody;
         private GameObject mapGeneratorGameObject;
 
-        public Program() : base(width, height, GraphicsMode.Default, "My poor (not so poor anymore) Game")
+        public MainWindow() : base(width, height, GraphicsMode.Default, "My poor (not so poor anymore) Game")
         {
             this.Resize += OnWindowResize;
         }
@@ -103,7 +105,7 @@ namespace OpenGL.Loop
         [STAThread]
         static void Main()
         {
-            using (var game = new Program())
+            using (var game = new MainWindow())
             {
                 game.Run(60.0);
             }
