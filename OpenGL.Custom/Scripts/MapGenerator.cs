@@ -40,6 +40,8 @@ namespace OpenGL.Custom
 
             cubes[5].material = MaterialLibrary.emptyMaterial;
             cubes[0].material = MaterialLibrary.emptyMaterial;
+
+            GameObject test = GameObject.CreatePrimitives(GameObject.PrimitiveType.empty);
         }
 
         public override void Update()

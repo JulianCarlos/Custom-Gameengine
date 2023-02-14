@@ -12,6 +12,7 @@ using System;
 using OpenTK.Graphics.OpenGL;
 using TextureWrapMode = Assimp.TextureWrapMode;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace OpenGL.Game
 {
@@ -44,7 +45,7 @@ namespace OpenGL.Game
             foreach (var component in components)
             {
                 component.Update();
-                meshRenderer.Update();
+                meshRenderer?.Update();
             }
         }
 
@@ -58,6 +59,9 @@ namespace OpenGL.Game
             switch (type)
             {
                 default:
+                case PrimitiveType.empty:
+                    return EmptyObject();
+
                 case PrimitiveType.cube:
                     return CreateCube();
 
@@ -72,6 +76,18 @@ namespace OpenGL.Game
             }
         }
 
+        private static GameObject EmptyObject()
+        {
+            GameObject gameObject = new GameObject();
+
+            gameObject.Name = "Cube";
+
+            gameObject.AddComponent<MeshRenderer>();
+
+            Scene.AddObject(gameObject.transform);
+            return gameObject;
+        }
+
         private static GameObject CreateCube()
         {
             GameObject gameObject = new GameObject();
@@ -80,52 +96,6 @@ namespace OpenGL.Game
             gameObject.meshRenderer = new MeshRenderer(MeshLibrary.DefaultCubeMesh, gameObject);
 
             Scene.AddObject(gameObject.transform);
-            return gameObject;
-        }
-
-        //TODO
-        public static GameObject LoadModel(string fileName)
-        {
-            GameObject gameObject = new GameObject();
-
-            // Load the model using Assimp
-            //var importer = new AssimpContext();
-            //var model = importer.ImportFile(fileName, PostProcessSteps.Triangulate | PostProcessSteps.FlipUVs);
-
-
-            // Get the first mesh in the model
-            //var mesh = model.Meshes[0];
-
-            //Console.WriteLine(model.MeshCount);
-            //Console.WriteLine(model.TextureCount);
-            //Vector3[] Vertices = new Vector3[mesh.VertexCount];
-            //for (int i = 0; i < mesh.Vertices.Count; i++)
-            //{
-            //    Vertices[i] = new Vector3(mesh.Vertices[i].X, mesh.Vertices[i].Y, mesh.Vertices[i].Z);
-            //}
-            //
-            //Vector3[] Normals = new Vector3[mesh.VertexCount];
-            //for (int i = 0; i < mesh.Normals.Count; i++)
-            //{
-            //    Normals[i] = new Vector3(mesh.Normals[i].X, mesh.Normals[i].Y, mesh.Normals[i].Z);
-            //}
-            //
-            //Vector2[] Uvs = new Vector2[mesh.VertexCount];
-            //for (int i = 0; i < mesh.TextureCoordinateChannelCount; i++)
-            //{
-            //    Uvs[i] = new Vector2(mesh.TextureCoordinateChannels[0][i].X, mesh.TextureCoordinateChannels[0][i].Y);
-            //}
-            //
-            //int[] tempIndices = mesh.GetIndices();
-            //uint[] Indices = new uint[mesh.GetIndices().Length];
-            //for (int i = 0; i < tempIndices.Length; i++)
-            //{
-            //    Indices[i] = (uint)tempIndices[i];
-            //}
-            //
-            //Mesh stupidMesh = new Mesh(Vertices, Uvs, Normals, Indices);
-            //gameObject.meshRenderer = new MeshRenderer(stupidMesh, gameObject);
-            //
             return gameObject;
         }
 
@@ -152,6 +122,7 @@ namespace OpenGL.Game
 
         public enum PrimitiveType
         {
+            empty,
             cube, 
             triangle,
             quad,

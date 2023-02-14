@@ -15,7 +15,12 @@ namespace OpenGL.Game
 {
     public class MeshRenderer : Component
     {
-        private Mesh mesh;
+        public Mesh mesh;
+
+        public MeshRenderer()
+        {
+
+        }
 
         public MeshRenderer(Mesh mesh, GameObject gameObject)
         {
