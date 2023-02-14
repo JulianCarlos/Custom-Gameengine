@@ -4,18 +4,12 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using OpenGL.Game;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
 using OpenGL.Game.Classes;
-using System.Drawing;
-using System.IO;
 using ConsoleApp1;
 using OpenGL.Custom;
 using OpenGL.Game.Library;
 using OpenGL.Game.Meshes;
-using System.Windows.Forms;
-using System.Drawing.Text;
+using System.Collections.Generic;
 
 namespace OpenGL.Loop
 {
@@ -28,6 +22,8 @@ namespace OpenGL.Loop
 
         private GameObject playerBody;
         private GameObject mapGeneratorGameObject;
+
+        private Dictionary<Mesh, Dictionary<Material, List<Matrix4>>> instances = new Dictionary<Mesh, Dictionary<Material, List<Matrix4>>>();
 
         public MainWindow() : base(width, height, GraphicsMode.Default, "My poor (not so poor anymore) Game")
         {

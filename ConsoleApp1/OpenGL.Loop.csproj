@@ -38,9 +38,6 @@
     <Reference Include="AssimpNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=0d51b391f59f42a6, processorArchitecture=MSIL">
       <HintPath>..\packages\AssimpNet.4.1.0\lib\net40\AssimpNet.dll</HintPath>
     </Reference>
-    <Reference Include="ImGui.NET, Version=1.89.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImGui.NET.1.89.4\lib\netstandard2.0\ImGui.NET.dll</HintPath>
-    </Reference>
     <Reference Include="Magick.NET-Q16-AnyCPU, Version=12.2.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
       <HintPath>..\packages\Magick.NET-Q16-AnyCPU.12.2.2\lib\netstandard20\Magick.NET-Q16-AnyCPU.dll</HintPath>
     </Reference>
@@ -101,8 +98,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\AssimpNet.4.1.0\build\AssimpNet.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AssimpNet.4.1.0\build\AssimpNet.targets'))" />
     <Error Condition="!Exists('..\packages\Magick.NET-Q16-AnyCPU.12.2.2\build\netstandard20\Magick.NET-Q16-AnyCPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q16-AnyCPU.12.2.2\build\netstandard20\Magick.NET-Q16-AnyCPU.targets'))" />
-    <Error Condition="!Exists('..\packages\ImGui.NET.1.89.4\build\net40\ImGui.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ImGui.NET.1.89.4\build\net40\ImGui.NET.targets'))" />
   </Target>
   <Import Project="..\packages\Magick.NET-Q16-AnyCPU.12.2.2\build\netstandard20\Magick.NET-Q16-AnyCPU.targets" Condition="Exists('..\packages\Magick.NET-Q16-AnyCPU.12.2.2\build\netstandard20\Magick.NET-Q16-AnyCPU.targets')" />
-  <Import Project="..\packages\ImGui.NET.1.89.4\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.89.4\build\net40\ImGui.NET.targets')" />
 </Project>

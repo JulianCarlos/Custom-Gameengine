@@ -19,12 +19,9 @@ C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\Magick.NET-Q16
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\Magick.NET.Core.dll
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\Magick.NET-Q16-AnyCPU.xml
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\Magick.NET.Core.xml
-C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\cimgui.dll
-C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\ImGui.NET.dll
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\System.Buffers.dll
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\System.Numerics.Vectors.dll
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\ImGui.NET.xml
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\System.Buffers.xml
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Game\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
