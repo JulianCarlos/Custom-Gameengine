@@ -19,3 +19,14 @@ C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\OpenTK.xml
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\Magick.NET-Q16-AnyCPU.xml
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\Magick.NET.Core.xml
 C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\obj\Debug\OpenGL.Custom.csproj.CopyComplete
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\AssimpNet.dll
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\AssimpNet.xml
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\cimgui.dll
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\ImGui.NET.dll
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\System.Buffers.dll
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\ImGui.NET.xml
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\System.Buffers.xml
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Julian Carlos\Desktop\Testing\Game\OpenGL.Custom\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

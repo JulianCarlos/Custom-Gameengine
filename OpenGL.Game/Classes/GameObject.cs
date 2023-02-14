@@ -4,6 +4,14 @@ using OpenGL.Game.AbstractClasses;
 using OpenGL.Game.Helper;
 using OpenGL.Game.Library;
 using OpenGL.Game.Meshes;
+using Assimp;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.IO;
+using System;
+using OpenTK.Graphics.OpenGL;
+using TextureWrapMode = Assimp.TextureWrapMode;
+using System.Linq;
 
 namespace OpenGL.Game
 {

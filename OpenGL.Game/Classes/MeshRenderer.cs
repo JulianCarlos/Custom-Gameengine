@@ -17,17 +17,11 @@ namespace OpenGL.Game
     {
         private Mesh mesh;
 
-        private int ShaderID;
-        private int TextureID;
-
         public MeshRenderer(Mesh mesh, GameObject gameObject)
         {
             Name = "MeshRenderer";
             this.mesh = mesh;
             this.gameObject = gameObject;
-
-            ShaderID = gameObject.material.ShaderID;
-            TextureID = gameObject.material.TextureID;
 
             var ligthingShaderPosition = gameObject.material.GetUniformLocation("aPos");
             GL.EnableVertexAttribArray(ligthingShaderPosition);
@@ -57,30 +51,30 @@ namespace OpenGL.Game
             if (mesh == null || gameObject.Active == false || (gameObject.transform.Parent != null && gameObject.transform.Parent.gameObject.Active == false))
                 return;
             
-            GL.UseProgram(ShaderID);
+            GL.UseProgram(gameObject.material.ShaderID);
 
             // Bind the texture
             GL.ActiveTexture(TextureUnit.Texture0);
             gameObject.material.Apply();
-            GL.BindTexture(TextureTarget.Texture2D, TextureID);
+            GL.BindTexture(TextureTarget.Texture2D, gameObject.material.TextureID);
 
             // Send the texture uniform to the fragment shader
-            int textureUniformLocation = GL.GetUniformLocation(ShaderID, "tex");
+            int textureUniformLocation = GL.GetUniformLocation(gameObject.material.ShaderID, "tex");
             GL.Uniform1(textureUniformLocation, 0);
 
             // Send the model matrix to the vertex shader
-            int modelMatrixUniformLocation = GL.GetUniformLocation(ShaderID, "model");
+            int modelMatrixUniformLocation = GL.GetUniformLocation(gameObject.material.ShaderID, "model");
 
             Matrix4 matrix4 = gameObject.transform.GetMatrix();
             GL.UniformMatrix4(modelMatrixUniformLocation, false, ref matrix4);
 
             // Send the view matrix to the vertex shader
-            int viewMatrixUniformLocation = GL.GetUniformLocation(ShaderID, "view");
+            int viewMatrixUniformLocation = GL.GetUniformLocation(gameObject.material.ShaderID, "view");
             matrix4 = camera.GetViewMatrix();
             GL.UniformMatrix4(viewMatrixUniformLocation, false, ref matrix4);
 
             // Send the projection matrix to the vertex shader
-            int projectionMatrixUniformLocation = GL.GetUniformLocation(ShaderID, "projection");
+            int projectionMatrixUniformLocation = GL.GetUniformLocation(gameObject.material.ShaderID, "projection");
             matrix4 = camera.GetProjectionMatrix();
             GL.UniformMatrix4(projectionMatrixUniformLocation, false, ref matrix4);
 
